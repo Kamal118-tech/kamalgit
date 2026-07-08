@@ -1,3 +1,6 @@
+#this do not require a terraform module developed by kamalbranch dev
+#Everything is working fine
+
 provider "aws" {
   region = "ap-south-1"
 }
