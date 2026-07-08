@@ -40,8 +40,3 @@ resource "aws_instance" "kamalterraformec2" {
     vpc_security_group_ids = [aws_security_group.kamal_security_group.id]
 }
 
-
-output "public_ip" {
-    description = "prints the output of the public ip"
-    value = aws_instance.kamalterraformec2.public_ip
-}
