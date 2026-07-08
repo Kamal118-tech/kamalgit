@@ -1,3 +1,13 @@
+
+###This provider was written by test developer###
+terraform{
+providers{
+  alias = ap-south-region
+  version = '>~4.0'
+}
+}
+################################################
+
 provider "aws" {
   region = "ap-south-1"
 }
