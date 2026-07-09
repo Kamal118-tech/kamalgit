@@ -1,3 +1,7 @@
+#this do not require a terraform module developed by kamalbranch dev
+#Everything is working fine
+
+
 provider "aws" {
   region = "ap-south-1"
 }
@@ -23,4 +27,3 @@ resource "aws_security_group" "kamal_security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
