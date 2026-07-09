@@ -24,20 +24,3 @@ resource "aws_security_group" "kamal_security_group" {
   }
 }
 
-
-#this is kamal comment after applying 444 permission
-#this is the second comment after applying 444 permission
-
-resource "aws_instance" "kamalterraformec2" {
-    ami = var.ami_id
-    instance_type = var.instance_type
-
-    subnet_id = aws_subnet.kamal_subnet.id
-    vpc_security_group_ids = [aws_security_group.kamal_security_group.id]
-}
-
-
-output "public_ip" {
-    description = "prints the output of the public ip"
-    value = aws_instance.kamalterraformec2.public_ip
-}
