@@ -1,29 +1,30 @@
-#this do not require a terraform module developed by kamalbranch dev
-#Everything is working fine
+---
+- name: Update web servers
+  hosts: webservers
+  remote_user: root
 
+  tasks:
+  - name: Ensure apache is at the latest version
+    ansible.builtin.yum:
+      name: httpd
+      state: latest
 
-provider "aws" {
-  region = "ap-south-1"
-}
+  - name: Write the apache config file
+    ansible.builtin.template:
+      src: /srv/httpd.j2
+      dest: /etc/httpd.conf
 
-resource "aws_vpc" "kamal_vpc" {
-    cidr_block = var.cidr_block
-}
+- name: Update db servers
+  hosts: databases
+  remote_user: root
 
-resource "aws_subnet" "kamal_subnet" {
-  vpc_id     = aws_vpc.kamal_vpc.id
-  cidr_block = cidrsubnet(var.cidr_block, 8, 1)
-}
+  tasks:
+  - name: Ensure postgresql is at the latest version
+    ansible.builtin.yum:
+      name: postgresql
+      state: latest
 
-resource "aws_security_group" "kamal_security_group" {
-  name        = "kamal_security_group"
-  description = "Allow SSH and RDP inbound traffic"
-  vpc_id      = aws_vpc.kamal_vpc.id
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
+  - name: Ensure that postgresql is started
+    ansible.builtin.service:
+      name: postgresql
+      state: started
